@@ -1,6 +1,11 @@
 # Test runner for apps script
 
-This is a test runner along the lines of ava, but for Apps Script. Not wonderful for Node - use ava, but if you are developing apps script on Node with clasp, you can write tests using this and use the same code with no changes on Apps Script.
+This is a test runner along the lines of ava (but more primitive),for Apps Script but ported to Node. If you are developing Apps Script on Node with clasp, you can write tests using this and push the same code with (almost) no changes on Apps Script.
+
+Apps script library id is
+''''
+1zOlHMOpO89vqLPe5XpC-wzA9r5yaBkWt_qFjKqFNsIZtNJ-iUjBYDt-x
+''''
 
 ## install
 
