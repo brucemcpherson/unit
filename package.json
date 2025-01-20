@@ -4,8 +4,11 @@
   "description": "Unit tester for Apps Script",
   "main": "index.mjs",
   "scripts": {
-    "test": "bash ./shells/nodify.sh && node test.mjs"
+    "test": "bash ./shells/nodify.sh && node test.mjs",
+    "publish": "npm publish @brucemcpherson/unit --access public"
   },
   "author": "Bruce Mcpherson",
-  "license": "MIT"
+  "license": "MIT",
+  "homepage": "https://ramblings.mcpher.com/apps-script-unit-tester-now-with-ava-style-option/",
+  "repository": "github:brucemcpherson/unit"
 }
