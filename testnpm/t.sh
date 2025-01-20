@@ -1,0 +1,1 @@
+cat ../test.mjs | sed 's/.\/index.mjs/@mcpher\/unit/' > ./t.mjs

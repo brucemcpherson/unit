@@ -1,14 +1,16 @@
 {
-  "name": "@mcpher/unit",
+  "name": "t",
   "version": "1.1.1",
   "description": "Unit tester for Apps Script",
-  "main": "index.mjs",
-  "scripts": {
-    "test": "bash ./shells/nodify.sh && node test.mjs",
-    "publish": "npm publish --access public"
-  },
+  "main": "t.mjs",
   "author": "Bruce Mcpherson",
   "license": "MIT",
   "homepage": "https://ramblings.mcpher.com/apps-script-unit-tester-now-with-ava-style-option/",
-  "repository": "github:brucemcpherson/unit"
+  "repository": "github:brucemcpherson/unit",
+  "dependencies": {
+    "@mcpher/unit": "^1.1.1"
+  },
+  "scripts": {
+    "test": "bash t.sh && node t.mjs"
+  }
 }
