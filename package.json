@@ -1,11 +1,11 @@
 {
-  "name": "@brucemcpherson/unit",
+  "name": "@mcpher/unit",
   "version": "1.1.1",
   "description": "Unit tester for Apps Script",
   "main": "index.mjs",
   "scripts": {
     "test": "bash ./shells/nodify.sh && node test.mjs",
-    "publish": "npm publish @brucemcpherson/unit --access public"
+    "publish": "npm publish @mcpher/unit --access public"
   },
   "author": "Bruce Mcpherson",
   "license": "MIT",
