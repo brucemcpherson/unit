@@ -10,7 +10,7 @@ Apps script library id is
 ## install
 
 ````
-npm i @brucemcpherson/unit
+npm i @mcpher/unit
 ````
 
 ## use
@@ -18,7 +18,7 @@ npm i @brucemcpherson/unit
 The usage is the same as in Apps Script - with the addition of the import (which doesn't exist an Apps Script). Documentation below, and there are some examples in test.mjs - as below.
 
 ````
-import {Exports} from '@brucemcpherson/unit';
+import {Exports} from '@mcpher/unit';
 const testTester = () => {
 
   const unit = Exports.newUnit({
