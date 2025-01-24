@@ -9,9 +9,6 @@ const testTester = () => {
     ob: { a: 1, b: 2 },
     nob: { a: 1, b: 2, c: 3 }
   }
-
-  const u = Exports.Utils
-
   unit.section(async (t) => {
 
     unit.is('foo', 'foo')

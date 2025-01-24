@@ -3,7 +3,7 @@ cat ./gas/Exports.js | sed "s/var Exports/export const Exports/" >> ./src/Export
 cat ./gas/deepeql.js | sed "s/var deepEquals/export const deepEquals/" > ./src/deepeql.mjs
 cat ./gas/errors.js | sed "s/var newU/export const newU/g" > ./src/errors.mjs
 cp ./shells/unitimports.txt ./src/Unit.mjs
-cat ./gas/Unit.js | sed "s/var Unit/export const Unit/" >> ./src/Unit.mjs
+cat ./gas/Unit.js | sed "s/const Unit/export const Unit/" >> ./src/Unit.mjs
 cp ./shells/testimports.txt ./test.mjs
 cat ./gas/test.js  >> ./test.mjs
 cat ./shells/testrun.txt >> ./test.mjs

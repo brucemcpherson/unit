@@ -1,5 +1,7 @@
 
-import { Exports } from './Exports.mjs';
+import {Exports} from './Exports.mjs';
+
+
 
 /**
  * UnitResult
@@ -536,7 +538,7 @@ class _Unit {
    * @return {boolean} if true then there's no errors
    */
   report() {
-    console.group('Section summary')
+    console.info('Section summary')
     this.sections.forEach(f => {
       console.info('',f.number+':', f.options.description, 'passes:'+ this.sectionPasses(f), 'failures:'+ this.sectionErrors(f))
     })
@@ -544,7 +546,7 @@ class _Unit {
       `(${Exports.Utils.percent(this.totalPasses, this.totalPasses + this.totalErrors)}%)`,
       'Total failures', this.totalErrors,
       `(${Exports.Utils.percent(this.totalErrors, this.totalPasses + this.totalErrors)}%)`)
-    console.groupEnd()
+
     console.info(this.totalErrors ? 'SOME TESTS FAILED' : 'ALL TESTS PASSED')
     console.info('Total elapsed ms', new Date().getTime() - this.startTime)
     return this.isGood()
