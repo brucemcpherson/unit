@@ -8,7 +8,7 @@
   "homepage": "https://ramblings.mcpher.com/apps-script-unit-tester-now-with-ava-style-option/",
   "repository": "github:brucemcpherson/unit",
   "dependencies": {
-    "@mcpher/unit": "^1.1.1"
+    "@mcpher/unit": "^1.1.3"
   },
   "scripts": {
     "test": "bash t.sh && node t.mjs"
