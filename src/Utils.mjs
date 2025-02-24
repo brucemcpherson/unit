@@ -1,4 +1,6 @@
-import {Exports} from './Exports.mjs';export const Utils = (() => {
+import {Exports} from './Exports.mjs';
+
+export const Utils = (() => {
 
 
   const isUndefined = (item) => typeof item === typeof undefined
@@ -9,6 +11,7 @@ import {Exports} from './Exports.mjs';export const Utils = (() => {
   const isArray = (item) => Array.isArray (item)
   const isPromise = (item) => !isNU (item) && (isObject(item) || isFunction(item)) && isFunction (item.then)
   const isString = (item) => typeof item === "string"
+  const isRx = (item) => item instanceof RegExp
   const percent = (value, base, places = 1) => {
     return base ? (100 * value / base).toFixed(places) : base.toFixed(places)
   }
@@ -38,8 +41,8 @@ import {Exports} from './Exports.mjs';export const Utils = (() => {
     isString,
     hasWildCards,
     isMatch,
-    wMatch
+    wMatch,
+    isRx
   }
 
 })()
-
