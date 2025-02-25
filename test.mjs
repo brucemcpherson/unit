@@ -1,7 +1,7 @@
 import { Exports } from './index.mjs';
 
 
-const testTester = () => {
+const testTester = async () => {
 
 
   if (Exports.CodeLocator.isGas) {
@@ -46,6 +46,20 @@ const testTester = () => {
     skip: false
   })
 
+  unit.cancel ()
+  unit.section ('this section should be cancelled', t=> {
+    t.is ('foo','bar')
+  })
+
+  unit.unCancel () 
+  unit.section ('uncancelled again', t=> {
+    const {eql} = t.is ('foo','bar')
+    if (!eql) {
+      t.cancel ()
+    }
+    t.is ('foo','bar','this one should be skipped')
+  })
+  
   unit.section('try description as argument', t => {
     t.truthy(1)
     t.falsey(0)
@@ -98,6 +112,10 @@ const testTester = () => {
   unit.section('rx stuff', t => {
     t.rxMatch("foo", /^F/i, "for ava order rx is the expected")
     unit.rxMatch(/.*O$/i, "foo", "for original order rx wildcard is the actual")
+  })
+
+  await ('await async stuff on apps script', async t=> {
+    t.is ('foo','bar')
   })
 
   unit.report()

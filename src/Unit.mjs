@@ -4,16 +4,28 @@ import { Exports } from './Exports.mjs';
 
 /**
  * CodeReport
- * @typedef CodeReport
+ * @typedef {object} CodeReport
  * @property {CodeLocation} location report was created from
  * @property {string} formatted a printable string constructed according to the CodeLocationFormatOptions
  */
 
 /**
- * UnitResult
- * @typedef {Object} UnitResult
+ * SectionData
+ * @typedef {object} SectionData
+ * @property {function} test the collection of tests to run on this section
+ * @property {TestResult[]} results all the results for each individual test so far
+ * @property {number} number the section index starting at 0
+ * @property {TestOptions} options the options for thos section
+ * @property {number} startTime timestamp for when this section started
+ * @property {boolean} isAsync whether this is an async section
+ */
+
+
+/**
+ * TestResult
+ * @typedef {Object} TestResult
  * @property {TestOptions} options - the test options
- * @property {UnitSection} section - The section this result belongs to
+ * @property {SectionData} section - The section this result belongs to
  * @property {number} testNumber - Serial number within the section
  * @property {boolean} eql - whether actual equals expect using the compare function (default deep equality)
  * @property {boolean} failed - whether the test failed
@@ -21,17 +33,6 @@ import { Exports } from './Exports.mjs';
  * @property {*} expect - the expect value
  * @property {*} actual - the actual value
  * @property {CodeReport} codeReport = the location of the calling test
- */
-
-
-/**
- * @typedef {Object} UnitSection
- * @property {function} test - The section test collection
- * @property {UnitResult[]} results - The results for this section
- * @property {number} number - the section serial number
- * @property {number} startTime when section started
- * @property {number} endTime when section ended
- * @property {TestOptions} options - the section options
  */
 
 
@@ -101,7 +102,8 @@ export class Unit {
       showValues: true,
       expectThenActual: true,
       _t: false,
-      codeLocationFormatOptions: {}
+      codeLocationFormatOptions: {
+      }
     })
 
     /**
@@ -157,7 +159,7 @@ export class Unit {
    * @param {function| string} a a function with all the tests or a description (ava style)
    * @param {function|TestOptions} b a function with all the tests or options (ava style)
    * @param {TestOptions} [sectionOptions] default options for this section
-   * @return {UnitResult[]} tests that have failed so far in this section
+   * @return {TestResult[]} tests that have failed so far in this section
    */
   section(a, b, c) {
 
@@ -259,7 +261,7 @@ export class Unit {
 
   /**
    * get the section currently being processed
-   * @return {UnitSection}
+   * @return {SectionData}
    */
   get currentSection() {
     return this.sections.slice(-1)[0]
@@ -271,7 +273,7 @@ export class Unit {
    * @param {*} actual the actual value 
    * @param {*} [expect] the expect value or undefined if test only needs 1 arg
    * @param {TestOptions| string} [options|string] testOptions or string description 
-   * @return UnitResult
+   * @return TestResult
    */
   test(actual, expect, options) {
 
@@ -302,7 +304,7 @@ export class Unit {
       throw `unexpect section index ${options._sectionIndex} - expect ${currentSection.number}`
     }
 
-    if (!options.skip || this.skipFromHere) {
+    if (!options.skip && !this.skipFromHere) {
       if (!Exports.Utils.isFunction(options.compare)) {
         throw `compare function is not a function - its a ${typeof options.compare}`
       }
@@ -355,7 +357,7 @@ export class Unit {
    * @param {*} expect the expect value
    * @param {*} actual the actual value
    * @param {TestOptions} options 
-   * @return UnitResult
+   * @return TestResult
    */
   deepEqual(actual, expect, options) {
     return this.test(actual, expect, {
@@ -369,7 +371,7 @@ export class Unit {
    * @param {*} expect the expect value
    * @param {*} actual the actual value
    * @param {TestOptions} options 
-   * @return UnitResult
+   * @return TestResult
    */
   equal(actual, expect, options) {
     options = this._fixOptions(options)
@@ -385,7 +387,7 @@ export class Unit {
    * @param {*} expect the expect value
    * @param {*} actual the actual value
    * @param {TestOptions} options 
-   * @return UnitResult
+   * @return TestResult
    */
   notEqual(actual, expect, options) {
     options = this._fixOptions(options)
@@ -400,7 +402,7 @@ export class Unit {
    * @param {*} expect the expect value
    * @param {*} actual the actual value
    * @param {TestOptions} options 
-   * @return UnitResult
+   * @return TestResult
    */
   notDeepEqual(actual, expect, options) {
     return this.test(actual, expect, {
@@ -416,7 +418,7 @@ export class Unit {
    * @param {*} expect the expect value
    * @param {*} actual the actual value
    * @param {TestOptions} options 
-   * @return UnitResult
+   * @return TestResult
    */
   rxMatch(actual, expect, options) {
     return this.test(actual, expect, { ...this._fixOptions(options), invert: false, compare: this.compares.rxMatch })
@@ -427,7 +429,7 @@ export class Unit {
    * @param {*} expect the expect value
    * @param {*} actual the actual value
    * @param {TestOptions} options 
-   * @return UnitResult
+   * @return TestResult
    */
   notRxMatch(actual, expect, options) {
     return this.test(actual, expect, { ...this._fixOptions(options), invert: true, compare: this.compares.rxMatch })
@@ -438,7 +440,7 @@ export class Unit {
    * @param {*} text the value to check
    * @param {*} wildcard the wildcard to check it against
    * @param {TestOptions} options 
-   * @return UnitResult
+   * @return TestResult
    */
   wildCardMatch(text, wildcard, options) {
     return this.test(text, wildcard, { ...this._fixOptions(options), invert: false, compare: this.compares.wildCardMatch })
@@ -449,7 +451,7 @@ export class Unit {
  * @param {*} text the value to check
  * @param {*} wildcard the wildcard to check it against
  * @param {TestOptions} options 
- * @return UnitResult
+ * @return TestResult
  */
   notWildCardMatch(text, wildcard, options) {
     return this.test(text, wildcard, { ...this._fixOptions(options), invert: true, compare: this.compares.wildCardMatch })
@@ -460,7 +462,7 @@ export class Unit {
    * @param {*} expect the expect value
    * @param {*} actual the actual value
    * @param {TestOptions} options 
-   * @return UnitResult
+   * @return TestResult
    */
   is(actual, expect, options) {
     return this.test(actual, expect, { ...this._fixOptions(options), invert: false })
@@ -472,7 +474,7 @@ export class Unit {
    * @param {*} expect the expect value
    * @param {*} actual the actual value
    * @param {TestOptions} options 
-   * @return UnitResult
+   * @return TestResult
    */
   not(actual, expect, options) {
     return this.test(actual, expect, { ...this._fixOptions(options), invert: true })
@@ -483,7 +485,7 @@ export class Unit {
    * do a test - succes is when compare is true
    * @param {*} actual the actual value
    * @param {TestOptions} options 
-   * @return UnitResult
+   * @return TestResult
    */
   true(actual, options) {
     return this.test(actual, true, {
@@ -497,7 +499,7 @@ export class Unit {
  * do a test - succes is when compare is false
  * @param {*} actual the actual value
  * @param {TestOptions} options 
- * @return UnitResult
+ * @return TestResult
  */
   false(actual, options) {
     return this.test(actual, true, {
@@ -510,7 +512,7 @@ export class Unit {
    * do a test - succes is when compare is false
    * @param {*} actual the actual value
    * @param {TestOptions} options 
-   * @return UnitResult
+   * @return TestResult
    */
   notHasWildCards(actual, options) {
     return this.test(actual, actual, {
@@ -526,7 +528,7 @@ export class Unit {
    * @param {*} expect the expect value
    * @param {*} actual the actual value
    * @param {TestOptions} options 
-   * @return UnitResult
+   * @return TestResult
    */
   hasWildCards(actual, options) {
     return this.test(actual, actual, {
@@ -543,7 +545,7 @@ export class Unit {
    * do a test - succes is when compare is true
    * @param {*} actual the actual value
    * @param {TestOptions} options 
-   * @return UnitResult
+   * @return TestResult
    */
   truthy(actual, options) {
     return this.test(!!actual, true, { ...this._fixOptions(options), expectThenActual: false, compare: this.compares.equal, invert: false })
@@ -553,14 +555,14 @@ export class Unit {
    * do a test - succes is when compare is true
    * @param {*} actual the actual value
    * @param {TestOptions} options 
-   * @return UnitResult
+   * @return TestResult
    */
   falsey(actual, options) {
     return this.test(!!actual, true, { ...this._fixOptions(options), compare: this.compares.equal, expectThenActual: false, invert: true })
   }
 
   /** 
-   * @param {UnitResult} result the unit result to get the description of
+   * @param {TestResult} result the unit result to get the description of
    * @return {string} the decorated description
    */
   getTestDescription(result) {
@@ -570,7 +572,7 @@ export class Unit {
 
   /**
    * 
-   * @param {UnitResult} result the unit result to decorate
+   * @param {TestResult} result the unit result to decorate
    * @return {string} the decorated result
    */
   getTestResult(result) {
@@ -579,7 +581,7 @@ export class Unit {
 
   /** 
    * log the test
-   * @param {UnitResult} result the unit result to decorate
+   * @param {TestResult} result the unit result to decorate
    * @return {string} the decorated result
    */
   reportTest(result) {
@@ -587,9 +589,9 @@ export class Unit {
     const e = options.showValues ? this.trunk(expect, options) : '--'
     const a = options.showValues ? this.trunk(actual, options) : '--'
     if (failed) {
-      console.info('  ', this.getTestResult(result), '  \n', Exports.newUnexpectedValueError(e, a).toString())
+      console.info('',this.getTestResult(result), ' \n', Exports.newUnexpectedValueError(e, a).toString())
     } else if (!options.showErrorsOnly) {
-      console.info('  ', this.getTestResult(result), '  \n', "  Actual:", a)
+      console.info('',this.getTestResult(result),  ' \n', "  Actual:", a)
     }
     if (!options.codeLocationFormatOptions.brief && (failed || !options.showErrorsOnly)) {
       console.info(result.codeReport.formatted)

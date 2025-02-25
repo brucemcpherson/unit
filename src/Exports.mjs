@@ -5,7 +5,7 @@ import {newUnknownPropertyError, newUnexpectedTypeError ,newUnexpectedValueError
 import {deepEquals} from './deepeql.mjs';
 import {CodeLocator} from '@mcpher/code-locator'
 
-export const Exports = {
+export var Exports = {
 
   get CodeLocator () {
     // patch for detecting library in gas versus import in node
