@@ -536,7 +536,6 @@ The test formatting options. Can be appkied at Unit, Section or Test level.
 - [Apps Script Unit tester now supports promises](https://ramblings.mcpher.com/apps-script-unit-tester-now-supports-promises/)
 - [An event emitter for Apps Script](https://ramblings.mcpher.com/an-event-emitter-for-apps-script/)
 - [Simple but powerful Apps Script Unit Test library](https://ramblings.mcpher.com/gassnippets2/simple-unit-test-library/)
-- [Paging large data sets and how to make Apps Script understand generators](https://ramblings.mcpher.com/\
-paging-large-data-sets-and-how-to-make-apps-script-understand-generators/)
+- [Making Apps Script understand generators](https://ramblings.mcpher.com/paging-large-data-sets-and-how-to-make-apps-script-understand-generators/)
 - [A POC implementation of Apps Script Environment on Node](https://ramblings.mcpher.com/a-proof-of-concept-implementation-of-apps-script-environment-on-node/)
 
