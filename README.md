@@ -439,7 +439,7 @@ Here are the exposed comparison functions
 
 ### Async
 
-Async/await syntax is supported on both Node and Apps Script. Apps Script supports Promises/await/async syntac but doesn't behave asynchronously. In order to avoid weirdness when running on Apps Script, you can still use await/async as normal but await each section - like this
+Async/await syntax is supported on both Node and Apps Script. Apps Script supports Promises/await/async syntac but doesn't behave asynchronously. In order to avoid weirdness (and there will be some bizarre things happening) when running on Apps Script, you can still use await/async as normal but await each section - like this
 ````
 await ('await async stuff on apps script', async t=> {
   t.is ('foo','bar')

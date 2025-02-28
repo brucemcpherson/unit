@@ -5,13 +5,19 @@ const tests = () => {
 
 
   const unit = Exports.newUnit({
-    showErrorsOnly: false,
+    showErrorsOnly: true,
     codeLocationFormatOptions: {
-      brief: true,
+      brief: false,
     }
   })
 
-
+  
+  unit.section('failing code is displayed', t => {
+    t.is ('foo','foo')
+    t.truthy('foo')
+    t.notHasWildCards ("f*")
+    t.rxMatch ('foo', /^f/i)
+  })
 
 
   console.log(unit.section ('difference between equal and deepequal', t=> {

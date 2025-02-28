@@ -1,6 +1,6 @@
 {
   "name": "@mcpher/unit",
-  "version": "1.1.9",
+  "version": "1.1.10",
   "description": "Unit tester for Apps Script",
   "main": "index.mjs",
   "scripts": {
@@ -12,6 +12,6 @@
   "homepage": "https://ramblings.mcpher.com/apps-script-unit-tester-now-with-ava-style-option/",
   "repository": "github:brucemcpherson/unit",
   "dependencies": {
-    "@mcpher/code-locator": "^1.0.3"
+    "@mcpher/code-locator": "^1.0.4"
   }
 }

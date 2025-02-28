@@ -120,7 +120,7 @@ const testTester = async () => {
 
   unit.report()
 
-  console.log ('....There should have 2 deliberate fails in this overall test')
+  console.log ('....should be 3 deliberate fails in this overall test')
 }
 
 //(async () => { await testTester() })(); //NO-GAS
